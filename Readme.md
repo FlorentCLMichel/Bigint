@@ -1,11 +1,11 @@
 ### Sumary
 
-A simple library for doing arithmetic operations on non-negative integer with arbitrary size. Integers are implemented as vectors of digits. 
+A simple library for doing arithmetic operations on non-negative integers with arbitrary size. Integers are implemented as vectors of digits. 
 This implementation is not designed with efficiency in mind and is rather slow compared with dedicated libraries. 
 Instead, it is aimed at showing how arbitrary-size arithmetic can be performed using a simple approach. 
 The library is designed to work with bases between 2 and 62, using digits between 0 and 9 then capital Latin letters and then lowercase letters. 
 Larger bases may work, but could give unexpected results. 
-All operations involving two Bigints assume they have the same base.
+All operations involving two Bigints assume they are written in the same base.
 
 It currently implements comparison of two Bigints, addition, subtraction, multiplication, Euclidean division, modulo, exponentiation by an integer, summation of the digits, primality test, and a simple algorithm to find the first prime numbers.
 
