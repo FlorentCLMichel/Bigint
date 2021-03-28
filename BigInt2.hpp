@@ -10,7 +10,7 @@
 using namespace std;
 
 vector<unsigned long> toVec(string n, unsigned int nDigits);
-vector<unsigned long> toVec(unsigned long n);
+vector<unsigned long> toVec(unsigned long n, unsigned long base);
 
 class Bigint {
 	public:

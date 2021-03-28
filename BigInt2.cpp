@@ -23,11 +23,13 @@ vector<unsigned long> toVec(string n, unsigned int nDigits){
 }
 
 
-vector<unsigned long> toVec(unsigned long n){
-    if (n == 0) {
-        return vector<unsigned long>();
+vector<unsigned long> toVec(unsigned long n, unsigned long base){
+    vector<unsigned long> res;
+    while(n > 0) {
+        res.push_back(n % base);
+        n /= base;
     }
-	return vector<unsigned long>({n});
+	return res;
 }
 
 
@@ -36,7 +38,7 @@ Bigint::Bigint(unsigned long n, unsigned int nDigits): nDigits(nDigits){
     for (int i=0; i<nDigits; i++) {
         base *= 10;
     }
-	value = toVec(n);
+	value = toVec(n, base);
 }
 
 
