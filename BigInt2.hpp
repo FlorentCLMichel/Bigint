@@ -35,6 +35,9 @@ class Bigint {
 
 		// remove leading zeros
 		void remLeadZeros(); 
+
+        // next integer
+        void next();
 	
 		// convert the value to a string
 		string toString(); 
@@ -48,7 +51,9 @@ bool operator>=(Bigint n1, Bigint n2);
 bool operator<=(Bigint n1, Bigint n2);
 ostream& operator<<(ostream& out, Bigint n);
 Bigint operator+(Bigint n1, Bigint n2);
+void operator+=(Bigint &n1, Bigint n2);
 Bigint operator-(Bigint n1, Bigint n2); // assumes n2 <= n1
+void operator-=(Bigint &n1, Bigint n2);
 Bigint operator+(Bigint N, unsigned long n);
 Bigint operator+(unsigned long n, Bigint N);
 Bigint operator*(unsigned long n, Bigint BN);

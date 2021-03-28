@@ -72,6 +72,25 @@ void Bigint::remLeadZeros(){
 }
 
 
+void Bigint::next() {
+    if (value.size() == 0) {
+        value.push_back(1);
+        return;
+    }
+    bool ret = true;
+    int i = 0;
+    while (ret && (i < value.size())) {
+        long next_val = value[i] + 1;
+        if (next_val == base) {
+            value[i] = 0;
+        } else {
+            value[i] = next_val;
+        }
+        i += 1;
+    }
+}
+
+
 string Bigint::toString() {
 	string res = "";
 	for(unsigned int i = value.size(); i>0; i--){
@@ -209,6 +228,52 @@ Bigint operator+(Bigint n1, Bigint n2){
 }
 
 
+void operator+=(Bigint &n1, Bigint n2){
+	long retenue = 0;
+	long sumDigits = 0;
+	int l1 = n1.value.size();
+	int l2 = n2.value.size();
+	for(int i=0; i<max(l1,l2); i++){
+		if((i<l1) && (i<l2)){
+			sumDigits = n1.value[i] + n2.value[i] + retenue;
+			if(sumDigits >= n1.base){
+				sumDigits = sumDigits-n1.base;
+				retenue = 1;
+			}
+			else{
+				retenue = 0;
+			}
+		    n1.value[i] = sumDigits;
+		}
+		else if(i < l1){
+			sumDigits = n1.value[i] + retenue;
+			if(sumDigits >=n1.base){
+				sumDigits = sumDigits-n1.base;
+				retenue = 1;
+			}
+			else{
+				retenue = 0;
+			}
+		    n1.value[i] = sumDigits;
+		}
+		else if(i < l2){
+			sumDigits = n2.value[i] + retenue;
+			if(sumDigits >=n1.base){
+				sumDigits = sumDigits-n1.base;
+				retenue = 1;
+			}
+			else{
+				retenue = 0;
+			}
+		    n1.value.push_back(sumDigits);
+		}
+	}
+	if(retenue==1){
+		n1.value.push_back(1);
+	}
+}
+
+
 Bigint operator-(Bigint n1, Bigint n2){
 	if (n2 > n1) {
 		cout << "Can't subtract a Bigint from a smaller Bigint" << endl;
@@ -250,6 +315,40 @@ Bigint operator-(Bigint n1, Bigint n2){
 }
 
 
+void operator-=(Bigint &n1, Bigint n2){
+	if (n2 > n1) {
+		cout << "Can't subtract a Bigint from a smaller Bigint" << endl;
+	}
+	long retenue = 0;
+	int difDigits = 0;
+	int l1 = n1.value.size();
+	int l2 = n2.value.size();
+	for(int i=0; i<max(l1,l2); i++){
+		if(i<l2){
+			difDigits = n1.value[i] - n2.value[i] - retenue;
+			if(difDigits < 0){
+				difDigits = difDigits+n1.base;
+				retenue = 1;
+			}
+			else{
+				retenue = 0;
+			}
+		}
+		else{
+			difDigits = n1.value[i] - retenue;
+			if(difDigits < 0){
+				difDigits = difDigits+n1.base;
+				retenue = 1;
+			}
+			else{
+				retenue = 0;
+			}
+		}
+		n1.value[i] = difDigits;
+	}
+}
+
+
 Bigint operator+(Bigint N, unsigned long n){
 	Bigint res = N + Bigint(n, N.nDigits);
 	return res;
@@ -263,12 +362,11 @@ Bigint operator+(unsigned long n, Bigint N){
 
 Bigint operator*(unsigned long n, Bigint BN){
 	Bigint res(0, BN.nDigits);
-	Bigint cur = BN;
     while (n>0) {
         if (n%2) {
-            res = res + cur;
+            res += BN;
         }
-        cur = cur + cur;
+        BN += BN;
         n /= 2; 
     }
 	res.remLeadZeros();
@@ -278,9 +376,13 @@ Bigint operator*(unsigned long n, Bigint BN){
 
 Bigint operator*(Bigint BN, unsigned long n){
 	Bigint res(0, BN.nDigits);
-	for(int i=0; i<n; i++){
-		res = res + BN;
-	}
+    while (n>0) {
+        if (n%2) {
+            res += BN;
+        }
+        BN += BN;
+        n /= 2; 
+    }
 	res.remLeadZeros();
 	return res;
 }
@@ -289,7 +391,6 @@ Bigint operator*(Bigint BN, unsigned long n){
 Bigint operator*(Bigint n1, Bigint n2){
 	Bigint res(0, n1.nDigits);
 	Bigint n1Pow10 = n1;
-	Bigint temp(0, n1.nDigits);
 	for(int i=0; i<n2.value.size(); i++){
 		res = res + n2.value[i]*n1Pow10;
 		n1Pow10.times10();
@@ -331,12 +432,12 @@ Bigint operator/(Bigint n1, Bigint n2){
 			n2_.times10(s1-s2-1);
 			res = n1/n2_;
 			res.times10(s1-s2-1);
-			res = res +  (n1 - n2*res)/n2;
+			res += (n1 - n2*res)/n2;
 			return res;
 		}
 		while(n1 >= n2){
-			res = res+1;
-			n1 = n1-n2;
+			res.next();
+			n1 -= n2;
 		}
 		return res;
 	}
