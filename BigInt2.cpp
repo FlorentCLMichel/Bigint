@@ -85,6 +85,28 @@ void Bigint::next() {
             value[i] = 0;
         } else {
             value[i] = next_val;
+            ret = 0;
+        }
+        i += 1;
+    }
+}
+
+
+void Bigint::previous() {
+    if (value.size() == 0) {
+        return;
+    }
+    bool ret = true;
+    int i = 0;
+    while (ret && (i < value.size())) {
+        if (value[i] == 0) {
+            value[i] = base-1;
+        } else {
+            value[i] -= 1;
+            ret = false;
+            if (value[i] == 0) {
+                value.pop_back();
+            }
         }
         i += 1;
     }
@@ -435,10 +457,16 @@ Bigint operator/(Bigint n1, Bigint n2){
 			res += (n1 - n2*res)/n2;
 			return res;
 		}
-		while(n1 >= n2){
-			res.next();
-			n1 -= n2;
-		}
+        if (n1 < n2) {
+            return res;
+        }
+        Bigint n2Times2 = n2 + n2;
+        if(n1 >= n2Times2){
+            res = n1 / n2Times2;
+            res += res;
+            return res + (n1 - n2*res)/n2;
+		} 
+        res.next();
 		return res;
 	}
 	catch(int e){

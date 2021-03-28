@@ -38,6 +38,9 @@ class Bigint {
 
         // next integer
         void next();
+        
+        // previous integer, or 0 for 0
+        void previous();
 	
 		// convert the value to a string
 		string toString(); 
