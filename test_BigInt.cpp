@@ -68,7 +68,7 @@ int main(int argc, char **argv){
 	cin >> nPrimes;
 	cout << "Here they are:" << endl;
 	vector<Bigint> primes = firstPrimes(nPrimes);
-	for(int i=1; i<=nPrimes-1; i++){
+	for(int i=0; i<nPrimes-1; i++){
 		cout << primes[i] << ", ";
 	}
 	cout << primes[nPrimes-1] << endl;
