@@ -1,4 +1,4 @@
-### Summary
+### Summary 
 
 A simple library for doing arithmetic operations on non-negative integers with arbitrary size. Integers are implemented as vectors of digits. 
 This implementation is not designed with efficiency in mind and is rather slow compared with dedicated libraries. 
