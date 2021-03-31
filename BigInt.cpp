@@ -135,18 +135,18 @@ bool operator==(Bigint n1, Bigint n2){
 }
 
 
-bool operator<(Bigint n1, Bigint n2){
-	return (n2 > n1);
-}
-
-
 bool operator>=(Bigint n1, Bigint n2){
 	return (n1 > n2) || (n1 == n2);
 }
 
 
+bool operator<(Bigint n1, Bigint n2){
+	return !(n2 >= n1);
+}
+
+
 bool operator<=(Bigint n1, Bigint n2){
-	return (n1 < n2) || (n1 == n2);
+	return !(n2 > n1);
 }
 
 

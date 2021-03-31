@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv){
 
-	int nDigits = 10;
+	int nDigits = 6;
 
 	if (argc > 1) {
 		nDigits = stoi(argv[1]);

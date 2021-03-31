@@ -180,18 +180,18 @@ bool operator==(Bigint n1, Bigint n2){
 }
 
 
-bool operator<(Bigint n1, Bigint n2){
-	return (n2 > n1);
-}
-
-
 bool operator>=(Bigint n1, Bigint n2){
 	return (n1 > n2) || (n1 == n2);
 }
 
 
+bool operator<(Bigint n1, Bigint n2){
+	return !(n2 >= n1);
+}
+
+
 bool operator<=(Bigint n1, Bigint n2){
-	return (n1 < n2) || (n1 == n2);
+	return !(n1 > n2);
 }
 
 
@@ -370,6 +370,7 @@ void operator-=(Bigint &n1, Bigint n2){
 		}
 		n1.value[i] = difDigits;
 	}
+    n1.remLeadZeros();
 }
 
 
@@ -459,16 +460,22 @@ Bigint operator/(Bigint n1, Bigint n2){
 			res += (n1 - n2*res)/n2;
 			return res;
 		}
-        if (n1 < n2) {
-            return res;
+        long pow2 = 0;
+        vector<Bigint> n2pow2 {n2};
+        while (n1 >= n2) {
+            n2pow2.push_back(n2);
+            pow2 += 1;
+            n2 += n2;
         }
-        Bigint n2Times2 = n2 + n2;
-        if(n1 >= n2Times2){
-            res = n1 / n2Times2;
+        for (long i=0; i<=pow2; i++) {
             res += res;
-            return res + (n1 - n2*res)/n2;
-		} 
-        res.next();
+            if (n1 >= n2) {
+                res.next();
+                n1 -= n2;
+            }
+            n2 = n2pow2.back();
+            n2pow2.pop_back();
+        }
 		return res;
 	}
 	catch(int e){

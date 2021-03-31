@@ -57,8 +57,8 @@ class Bigint {
 // definition of some operators
 bool operator>(Bigint n1, Bigint n2);
 bool operator==(Bigint n1, Bigint n2);
-bool operator<(Bigint n1, Bigint n2);
 bool operator>=(Bigint n1, Bigint n2);
+bool operator<(Bigint n1, Bigint n2);
 bool operator<=(Bigint n1, Bigint n2);
 ostream& operator<<(ostream& out, Bigint n);
 Bigint operator+(Bigint n1, Bigint n2);
