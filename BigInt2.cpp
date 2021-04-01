@@ -546,6 +546,7 @@ vector<Bigint> firstPrimes(unsigned int n) {
 	}
 
 	vector<Bigint> primes = {Bigint(2),Bigint(3)};
+	vector<Bigint> primesSquared = {Bigint(4),Bigint(9)};
 	Bigint x(3);
 	Bigint zero(0);
 	for (int i=2; i<n; i++) {
@@ -554,7 +555,7 @@ vector<Bigint> firstPrimes(unsigned int n) {
 			x += 2;
 			isNotPrime = false;
 			for (int j=0; j<i; j++) {
-				if (primes[j] * primes[j] > x) {
+				if (primesSquared[j] > x) {
 					break;
 				}
 				if (x % primes[j] == zero) {
@@ -564,6 +565,7 @@ vector<Bigint> firstPrimes(unsigned int n) {
 			}
 		}
 		primes.push_back(x);
+		primesSquared.push_back(x*x);
 	}
 	return primes;
 }
