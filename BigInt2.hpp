@@ -58,6 +58,7 @@ void operator+=(Bigint &n1, Bigint n2);
 Bigint operator-(Bigint n1, Bigint n2); // assumes n2 <= n1
 void operator-=(Bigint &n1, Bigint n2);
 Bigint operator+(Bigint N, unsigned long n);
+void operator+=(Bigint &N, unsigned long n);
 Bigint operator+(unsigned long n, Bigint N);
 Bigint operator*(unsigned long n, Bigint BN);
 Bigint operator*(Bigint BN, unsigned long n);

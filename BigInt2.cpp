@@ -380,6 +380,11 @@ Bigint operator+(Bigint N, unsigned long n){
 }
 
 
+void operator+=(Bigint &N, unsigned long n){
+	N += Bigint(n, N.nDigits);
+}
+
+
 Bigint operator+(unsigned long n, Bigint N){
 	return N + Bigint(n, N.nDigits);
 }
@@ -430,7 +435,7 @@ Bigint factorial(Bigint n){
     Bigint one(1, n.nDigits);
 	while(n > one){
 		res = n*res;
-		n = n - one;
+		n.previous();
 	}
 	return res;
 }
@@ -519,9 +524,9 @@ bool isPrime(Bigint n){
 
 
 Bigint nextPrime(Bigint n){
-	n = n+1;
+	n.next();
 	while(!isPrime(n)){
-		n=n+1;
+		n.next();
 	}
 	return n;
 }
@@ -541,12 +546,12 @@ vector<Bigint> firstPrimes(unsigned int n) {
 	}
 
 	vector<Bigint> primes = {Bigint(2),Bigint(3)};
-	Bigint x(4);
+	Bigint x(3);
 	Bigint zero(0);
 	for (int i=2; i<n; i++) {
 		bool isNotPrime = true; 
 		while (isNotPrime) {
-			x = x + 1;
+			x += 2;
 			isNotPrime = false;
 			for (int j=0; j<i; j++) {
 				if (primes[j] * primes[j] > x) {
