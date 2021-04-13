@@ -6,7 +6,10 @@
 #ifndef BigInt
 #define BigInt
 
-#include<bits/stdc++.h>
+#include<iostream>
+#include<string>
+#include<vector>
+#include<random>
 using namespace std;
 
 vector<unsigned long> toVec(string n, unsigned int nDigits);
@@ -25,7 +28,10 @@ class Bigint {
 		explicit Bigint(unsigned long n, unsigned int nDigits = 10); 
 
 		// convert a string of digits to a Bigint
-		Bigint(string n, unsigned int nDigits = 10); 
+		Bigint(string n, unsigned int nDigits); 
+		
+        // convert a vector to a Bigint
+		Bigint(vector<unsigned long>, unsigned int nDigits); 
 	
 		// multiply the value by 10
 		void times10(); 
@@ -75,5 +81,8 @@ vector<Bigint> firstPrimes(unsigned int n);
 
 // sum of the digits
 Bigint sumDigits(Bigint N);
+
+// get a random Bigint between 0 and N-1
+Bigint randomBigint(Bigint N, mt19937 &rng);
 
 #endif

@@ -49,7 +49,17 @@ Bigint::Bigint(string n, unsigned int nDigits): nDigits(nDigits){
     }
 	value = toVec(n, nDigits);
 }
+
+
+Bigint::Bigint(vector<unsigned long> n, unsigned int nDigits): nDigits(nDigits){
+    base = 1;
+    for (int i=0; i<nDigits; i++) {
+        base *= 10;
+    }
+	value = n;
+}
 		
+
 void Bigint::times10(){
 	value.insert(value.begin(),0);
 }
@@ -577,4 +587,25 @@ Bigint sumDigits(Bigint N){
 		res = res + n;
 	}
 	return res;
+}
+
+
+Bigint randomBigint(Bigint N, mt19937 &rng) {
+    uniform_int_distribution<unsigned long> dist(0, N.base);
+    uniform_int_distribution<unsigned long> dist_l(0, N.value[N.value.size()-1]);
+    vector<unsigned long> vec_numbers;
+    const unsigned int n_numbers = N.value.size();
+    for (int i=0; i<n_numbers-1; i++) {
+        vec_numbers.push_back(dist(rng));
+    }
+    vec_numbers.push_back(dist_l(rng));
+    while (Bigint(vec_numbers, N.nDigits) >= N) {
+        for (int i=0; i<n_numbers-1; i++) {
+            vec_numbers[i] = dist(rng);
+        }
+        vec_numbers[n_numbers-1] = dist_l(rng);
+    }
+    Bigint res(vec_numbers, N.nDigits);
+    res.remLeadZeros();
+    return res;
 }

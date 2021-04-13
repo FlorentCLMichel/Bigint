@@ -4,7 +4,7 @@
 
 int main(int argc, char **argv){
 
-	int nDigits = 6;
+	int nDigits = 10;
 
 	if (argc > 1) {
 		nDigits = stoi(argv[1]);
@@ -53,11 +53,31 @@ int main(int argc, char **argv){
 	Bigint facn1 = factorial(n1);
 	cout << "n1! = " << facn1 << endl;
 
+    // random number
+    random_device rd;
+    mt19937 gen(rd());
+    unsigned int nRN;
+    string maxRN_s;
+    cout << "Number of random numbers:" << endl;
+    cin >> nRN;
+    cout << "Maximum number:" << endl; 
+    cin >> maxRN_s;
+    Bigint maxRN(maxRN_s, nDigits);
+    uniform_int_distribution<unsigned long> dist(0, 10); //
+    for (int i=0; i<nRN-1; i++) {
+        cout << randomBigint(maxRN+1, gen) << ", ";
+    }
+    cout << randomBigint(maxRN+1, gen) << endl;
+
 	// print the first few prime numbers
-	cout << "How many primes would you like?" << endl;
-	int nPrimes;
+	cout << "Number of primes:" << endl;
+	unsigned int nPrimes;
 	cin >> nPrimes;
-	cout << "Here they are:" << endl;
+    if (nPrimes > 1) {
+	    cout << "The first " << nPrimes << " primes are:" << endl;
+    } else if (nPrimes == 1) {
+        cout << "The first prime is:" << endl;
+    }
 	vector<Bigint> primes = firstPrimes(nPrimes);
 	for(int i=0; i<nPrimes-1; i++){
 		cout << primes[i] << ", ";
