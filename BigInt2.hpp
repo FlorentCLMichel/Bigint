@@ -18,7 +18,9 @@ vector<unsigned long> toVec(unsigned long n, unsigned long base);
 class Bigint {
 	public:
 		
+        // number of base-10 digits per Bigint digit
 		unsigned int nDigits;
+
         unsigned long base;
 		
 		// vector storing the value
