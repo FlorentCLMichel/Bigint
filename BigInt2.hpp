@@ -1,5 +1,5 @@
 /* 
-   A simple library for doing arithmetic operations on non-negative integer 
+   A simple library for doing arithmetic operations on non-negative integers
    with arbitrary size.
 */
 

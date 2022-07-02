@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 	int n;
 	cin >> n;
 
-	// convert the strings n1_ and n2_ as arbitrary-size integers
+	// convert the strings n1_ and n2_ to arbitrary-size integers
 	Bigint n1(n1_, nDigits);
 	Bigint n2(n2_, nDigits);
 
@@ -60,14 +60,16 @@ int main(int argc, char **argv){
     string maxRN_s;
     cout << "Number of random numbers:" << endl;
     cin >> nRN;
-    cout << "Maximum number:" << endl; 
-    cin >> maxRN_s;
-    Bigint maxRN(maxRN_s, nDigits);
-    uniform_int_distribution<unsigned long> dist(0, 10); //
-    for (int i=0; i<nRN-1; i++) {
-        cout << randomBigint(maxRN+1, gen) << ", ";
+    if (nRN > 0) {
+        cout << "Maximum number:" << endl; 
+        cin >> maxRN_s;
+        Bigint maxRN(maxRN_s, nDigits);
+        uniform_int_distribution<unsigned long> dist(0, 10); //
+        for (int i=0; i<nRN-1; i++) {
+            cout << randomBigint(maxRN+1, gen) << ", ";
+        }
+        cout << randomBigint(maxRN+1, gen) << endl;
     }
-    cout << randomBigint(maxRN+1, gen) << endl;
 
 	// print the first few prime numbers
 	cout << "Number of primes:" << endl;

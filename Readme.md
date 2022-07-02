@@ -7,7 +7,7 @@ The library is designed to work with bases between 2 and 62, using digits betwee
 Larger bases may work, but could give unexpected results. 
 All operations involving two Bigints assume they are written in the same base.
 
-It currently implements comparison of two Bigints, addition, subtraction, multiplication, Euclidean division, modulo, exponentiation by an integer, summation of the digits, primality test, and a simple algorithm to find the first prime numbers.
+It currently implements comparison of two Bigints, addition, subtraction, multiplication, Euclidean division, modulo, exponentiation by an integer, summation of the digits, primality test, and a simple (but very inefficient) algorithm to find the first prime numbers.
 
 The library `BigInt2` removes the support for different bases but is more efficient for multiplication and division of large numbers. It also includes a simple random number generator.
 
