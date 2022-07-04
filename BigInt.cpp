@@ -135,18 +135,18 @@ bool operator==(Bigint n1, Bigint n2){
 }
 
 
-bool operator>=(Bigint n1, Bigint n2){
-	return (n1 > n2) || (n1 == n2);
+bool operator<(Bigint n1, Bigint n2){
+	return n2 > n1;
 }
 
 
-bool operator<(Bigint n1, Bigint n2){
-	return !(n1 >= n2);
+bool operator>=(Bigint n1, Bigint n2){
+	return !(n1 < n2);
 }
 
 
 bool operator<=(Bigint n1, Bigint n2){
-	return !(n2 > n1);
+	return !(n1 > n2);
 }
 
 
@@ -165,6 +165,7 @@ ostream& operator<<(ostream& out, Bigint n){
 			}
 		}
 	}
+    return out;
 }
 
 
@@ -418,11 +419,14 @@ bool isPrime(Bigint n){
 	}
 	Bigint k(2, n.base);
 	Bigint Zero(0, n.base);
+    unsigned int m = 1;
 	while(k*k <= n){
 		if(n%k == Zero){
 			return false;
 		}
-		k = k+1;
+		k = k+m;
+        if (m == 1) 
+            m = 2;
 	}
 	return true;
 }

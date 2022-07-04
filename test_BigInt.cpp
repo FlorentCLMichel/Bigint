@@ -43,12 +43,12 @@ int main(int argc, char **argv){
 	// see if n1 and n2 are prime
 	if(isPrime(n1)){
 		cout << n1 << " is prime" << endl;
-	} else{
+	} else {
 		cout << n1 << " is not prime" << endl;
 	}
 	if(isPrime(n2)){
 		cout << n2 << " is prime" << endl;
-	} else{
+	} else {
 		cout << n2 << " is not prime" << endl;
 	}
 
